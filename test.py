@@ -1,9 +1,10 @@
+# server.py
 from flask import Flask, request, jsonify
-from flask_cors import CORS  # Importa CORS
+from flask_cors import CORS
 import app  # Importa la conexión desde app.py
 
 app_flask = Flask(__name__)
-CORS(app_flask) 
+CORS(app_flask)  # Habilita CORS para todas las rutas
 
 @app_flask.route('/registrar', methods=['POST'])
 def registrar_profesional():
@@ -36,6 +37,23 @@ def registrar_profesional():
     except Exception as e:
         print(e)
         return jsonify({'message': 'Error al insertar datos'}), 500
+    finally:
+        cursor.close()
+
+@app_flask.route('/obtener', methods=['GET'])
+def obtener_profesionales():
+    cursor = app.conexion.cursor(dictionary=True)  # Usa un cursor que devuelva diccionarios
+
+    # Sentencia SQL para seleccionar todos los datos
+    sql = 'SELECT * FROM profesionales'
+
+    try:
+        cursor.execute(sql)
+        profesionales = cursor.fetchall()  # Obtiene todos los registros
+        return jsonify(profesionales), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'message': 'Error al obtener datos'}), 500
     finally:
         cursor.close()
 
