@@ -1,32 +1,39 @@
-import app  # Importa la conexión desde app.py
+from flask import Flask, request, jsonify
+import app  # Importa la conexión desde tu archivo de configuración
 
-cursor = app.conexion.cursor()  # Usar la conexión importada
+app_flask = Flask(__name__)
 
-# Sentencia SQL para insertar datos
-sql = '''
-    INSERT INTO profesionales (id_profesional, tipo_documento, numero_documento, nombre, genero, estrato, barrio, localidad)
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-'''
+@app_flask.route('/registrar', methods=['POST'])
+def registrar_profesional():
+    data = request.json
 
-# Datos que quieres insertar
-nuevo_profesional = (None, 'Cc', 1687541347, 'Juen Gomez', 'Masculino', 3, 'Bosa', 'Fusagasuga')
+    # Asignar los datos recibidos
+    tipo_documento = data['tipo_documento']
+    numero_documento = data['numero_documento']
+    nombre = data['nombre']
+    genero = data['genero']
+    estrato = data['estrato']
+    barrio = data['barrio']
+    localidad = data['localidad']
 
-# Ejecutar la sentencia SQL
-cursor.execute(sql, nuevo_profesional)
+    cursor = app.conexion.cursor()
 
-# Confirmar los cambios
-app.conexion.commit()
+    # Sentencia SQL para insertar datos
+    sql = '''
+        INSERT INTO profesionales (tipo_documento, numero_documento, nombre, genero, estrato, barrio, localidad)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+    '''
 
-# Cerrar la conexión
-app.conexion.close()
+    try:
+        # Ejecutar la sentencia SQL
+        cursor.execute(sql, (tipo_documento, numero_documento, nombre, genero, estrato, barrio, localidad))
+        app.conexion.commit()
+        return jsonify({"message": "Profesional registrado exitosamente."}), 201
+    except Exception as e:
+        app.conexion.rollback()
+        return jsonify({"message": "Error al registrar el profesional: " + str(e)}), 500
+    finally:
+        cursor.close()
 
-print("Datos insertados correctamente.")
-
-#  id_profesional int primary key auto_increment,
-#     tipo_documento varchar(10),
-#     numero_documento int,
-#     nombre varchar(50),
-#     genero varchar(10),
-#     estrato int,
-#     barrio varchar(50),
-#     localidad varchar(50)
+if __name__ == '__main__':
+    app_flask.run(debug=True)
