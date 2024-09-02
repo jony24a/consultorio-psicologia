@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Profesional</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registrar Profesional</h1>
+        <form id="professionalForm">
+            <div class="form-group">
+                <label for="tipo_documento">Tipo de Documento:</label>
+                <select id="tipo_documento" name="tipo_documento" required>
+                    <option value="" disabled selected>Seleccionar</option>
+                    <option value="Cc">Cc</option>
+                    <option value="Ti">Ti</option>
+                </select>
+                
+            </div>
+            <div class="form-group">
+                <label for="numero_documento">Número de Documento:</label>
+                <input type="text" id="numero_documento" name="numero_documento" pattern="\d{10}" required title="El número de documento debe tener 10 dígitos">
+            </div>            
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="genero">Género:</label>
+                <select id="genero" name="genero" required>
+                    <option value="" disabled selected>Seleccionar</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="estrato">Estrato:</label>
+                <select id="estrato" name="estrato" required>
+                    <option value="" disabled selected>Seleccionar</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="barrio">Barrio:</label>
+                <input type="text" id="barrio" name="barrio" required>
+            </div>
+            <div class="form-group">
+                <label for="localidad">Localidad:</label>
+                <input type="text" id="localidad" name="localidad" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Registrar</button>
+            </div>
+        </form>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('professionalForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evitar el envío del formulario por defecto
+
+            const formData = {
+                tipo_documento: document.getElementById('tipo_documento').value,
+                numero_documento: document.getElementById('numero_documento').value,
+                nombre: document.getElementById('nombre').value,
+                genero: document.getElementById('genero').value,
+                estrato: document.getElementById('estrato').value,
+                barrio: document.getElementById('barrio').value,
+                localidad: document.getElementById('localidad').value
+            };
+
+            fetch('http://127.0.0.1:5000/registrar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').innerText = data.message;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('message').innerText = 'Error al registrar el profesional.';
+            });
+        });
+    </script>
+</body>
+</html>
