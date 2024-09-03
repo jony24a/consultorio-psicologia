@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Profesional</title>
+    <title>Registrar Practicante</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,7 +20,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 400px;
+            max-width: 500px;
         }
         h1 {
             text-align: center;
@@ -39,7 +39,7 @@
         }
         .form-group button {
             background-color: #007bff;
-            color: rgb(235, 210, 164);
+            color: #fff;
             border: none;
             padding: 10px;
             width: 100%;
@@ -56,8 +56,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Registrar Profesional</h1>
-        <form id="professionalForm">
+        <h1>Registrar Practicante</h1>
+        <form id="practitionerForm">
             <div class="form-group">
                 <label for="tipo_documento">Tipo de Documento:</label>
                 <select id="tipo_documento" name="tipo_documento" required>
@@ -66,12 +66,11 @@
                     <option value="Ti">TI</option>
                     <option value="Ce">CE</option>
                 </select>
-                
             </div>
             <div class="form-group">
                 <label for="numero_documento">Número de Documento:</label>
                 <input type="text" id="numero_documento" name="numero_documento" pattern="\d{10}" required title="El número de documento debe tener 10 dígitos">
-            </div>            
+            </div>
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required>
@@ -84,7 +83,6 @@
                     <option value="Femenino">Femenino</option>
                 </select>
             </div>
-            
             <div class="form-group">
                 <label for="estrato">Estrato:</label>
                 <select id="estrato" name="estrato" required>
@@ -95,15 +93,8 @@
                     <option value="4">4</option>
                     <option value="5">5</option>
                     <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
                 </select>
             </div>
-            
             <div class="form-group">
                 <label for="barrio">Barrio:</label>
                 <input type="text" id="barrio" name="barrio" required>
@@ -113,6 +104,23 @@
                 <input type="text" id="localidad" name="localidad" required>
             </div>
             <div class="form-group">
+                <label for="periodo">Período:</label>
+                <input type="number" id="periodo" name="periodo" required>
+            </div>
+            <div class="form-group">
+                <label for="jornada">Jornada:</label>
+                <select id="jornada" name="jornada" required>
+                    <option value="" disabled selected>Seleccionar</option>
+                    <option value="Mañana">Mañana</option>
+                    <option value="Tarde">Tarde</option>
+                    <option value="Noche">Noche</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="año_matricula">Año de Matrícula:</label>
+                <input type="number" id="año_matricula" name="año_matricula" required>
+            </div>
+            <div class="form-group">
                 <button type="submit">Registrar</button>
             </div>
         </form>
@@ -120,7 +128,7 @@
     </div>
 
     <script>
-        document.getElementById('professionalForm').addEventListener('submit', function(event) {
+        document.getElementById('practitionerForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Evitar el envío del formulario por defecto
 
             const formData = {
@@ -130,10 +138,13 @@
                 genero: document.getElementById('genero').value,
                 estrato: document.getElementById('estrato').value,
                 barrio: document.getElementById('barrio').value,
-                localidad: document.getElementById('localidad').value
+                localidad: document.getElementById('localidad').value,
+                periodo: document.getElementById('periodo').value,
+                jornada: document.getElementById('jornada').value,
+                año_matricula: document.getElementById('año_matricula').value
             };
-            
-            fetch('http://127.0.0.1:5000/registrar', {
+
+            fetch('http://127.0.0.1:5000/registrar_practicante', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -146,7 +157,7 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                document.getElementById('message').innerText = 'Error al registrar el profesional.';
+                document.getElementById('message').innerText = 'Error al registrar el practicante.';
             });
         });
     </script>

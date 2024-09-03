@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import app  # Importa la conexión desde tu archivo de configuración
 
 app_flask = Flask(__name__)
+CORS(app_flask)  # Habilita CORS para todas las rutas y orígenes
 
 @app_flask.route('/registrar', methods=['POST'])
 def registrar_profesional():

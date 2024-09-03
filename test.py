@@ -1,4 +1,3 @@
-# server.py
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import app  # Importa la conexión desde app.py
@@ -56,6 +55,12 @@ def obtener_profesionales():
         return jsonify({'message': 'Error al obtener datos'}), 500
     finally:
         cursor.close()
+
+@app_flask.route('/registrar_paciente', methods=['POST'])
+def registrar_paciente():
+    data = request.json
+    # Aquí iría el código para manejar la solicitud de registro de paciente
+    return jsonify({"message": "Paciente registrado exitosamente."}), 201
 
 if __name__ == '__main__':
     app_flask.run(debug=True)

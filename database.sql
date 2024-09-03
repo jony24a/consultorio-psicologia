@@ -17,15 +17,15 @@ create table practicantes (
 );
 
 -- Tabla profesionales
-create table profesionales (
-    id_profesional int primary key auto_increment,
-    tipo_documento varchar(10),
-    numero_documento int,
-    nombre varchar(50),
-    genero varchar(10),
-    estrato int,
-    barrio varchar(50),
-    localidad varchar(50)
+CREATE TABLE profesionales (
+    id_profesional INT PRIMARY KEY AUTO_INCREMENT,
+    tipo_documento VARCHAR(10),
+    numero_documento INT,
+    nombre VARCHAR(50),
+    genero VARCHAR(10),
+    estrato INT,
+    barrio VARCHAR(50),
+    localidad VARCHAR(50)
 );
 
 -- Tabla pacientes

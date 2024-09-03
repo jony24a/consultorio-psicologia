@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 
 # Configuración de la conexión a la base de datos
 usuario = 'root'
-contraseña = ''
+contraseña = 'root'
 host = 'localhost'
 puerto = '3306'
 nombre_bd = 'agendamiento'
