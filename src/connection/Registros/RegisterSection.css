@@ -1,0 +1,102 @@
+/* Contenedor principal centrado */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* Esto asegura que el contenido esté centrado verticalmente */
+  padding: 20px;
+  /* background-color: #f0f0f0; Fondo claro para contrastar */
+}
+
+/* Encabezado del registro */
+.register-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Ajustar el tamaño de los textos */
+.register-header h1 {
+  font-size: 2.5rem;
+  color: #ffffff;
+}
+
+.register-header p {
+  font-size: 1.2rem;
+  color: #ffffff; /* Mejoramos el contraste para que sea más legible */
+}
+
+/* Botones del menú de navegación */
+.register-nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espaciado entre los botones */
+  margin-bottom: 20px;
+}
+
+.nav-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  /* color: white; */
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #0056b3;
+}
+
+.nav-button:focus {
+  outline: none;
+}
+
+/* Estilos para el contenido principal (formularios) */
+.register-main {
+  max-width: 600px;
+  width: 100%; /* Hace que ocupe el 100% del contenedor */
+  padding: 20px;
+  /* background-color: white; */
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destacar el formulario */
+}
+
+/* Estilos para el formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #6b6b6b;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: #333; /* Color de texto oscuro para mejor legibilidad */
+  background-color: #1a1a1a; /* Fondo más claro para los inputs */
+}
+
+form input::placeholder {
+  color: #888; /* Placeholder más suave */
+}
+
+form button {
+  padding: 12px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #45a049;
+}
