@@ -78,7 +78,7 @@ form select {
   border: 1px solid #6b6b6b;
   box-sizing: border-box;
   font-size: 1rem;
-  color: #333; /* Color de texto oscuro para mejor legibilidad */
+  color: #c5c5c5; /* Color de texto oscuro para mejor legibilidad */
   background-color: #1a1a1a; /* Fondo más claro para los inputs */
 }
 

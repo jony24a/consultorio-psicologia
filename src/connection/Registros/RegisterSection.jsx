@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import RegisterForm from './RegistroProfesional';
 import PracticanteForm from './RegistroPracticante';
 import PacienteForm from './registroPaciente';
-import './RegisterSection.css'; // Importamos el archivo CSS
+import './css/RegisterSection.css';
+import hogarIcon from './css/hogar.png';
 
 function RegisterSection() {
   const [activeForm, setActiveForm] = useState('profesionales');
@@ -20,10 +21,24 @@ function RegisterSection() {
     }
   };
 
+  // Función para redirigir al inicio
+  const goToHome = () => {
+    window.location.href = '/MainMenu'; // Cambia la ruta según sea necesario
+  };
+
   return (
     <div className="register-container">
       <header className="register-header">
         <nav className="register-nav">
+        <button className="nav-button" onClick={goToHome}>
+  <img 
+    src={hogarIcon} 
+    alt="Inicio" 
+    style={{ width: '20px', height: '20px', marginRight: '5px' }} 
+  />
+</button>
+
+
           <button className="nav-button" onClick={() => setActiveForm('profesionales')}>
             Profesionales
           </button>

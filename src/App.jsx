@@ -7,6 +7,7 @@ function App() {
   const [activeSection, setActiveSection] = useState('menu');
 
   const renderSection = () => {
+    console.log(activeSection); // Agregar para verificar el valor
     switch (activeSection) {
       case 'menu':
         return <MainMenu onSectionChange={setActiveSection} />;
