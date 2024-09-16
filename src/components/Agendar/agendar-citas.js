@@ -1,119 +1,43 @@
-import React, { useState } from 'react';
+const express = require('express');
+const app = express();
+const port = 5000;
 
-const AgendarCita = () => {
-  const [fecha, setFecha] = useState('');
-  const [hora, setHora] = useState('');
-  const [lugar, setLugar] = useState('');
-  const [idPaciente, setIdPaciente] = useState('');
-  const [idProfesional, setIdProfesional] = useState('');
-  const [idPracticante, setIdPracticante] = useState('');
+// Middleware para parsear JSON
+app.use(express.json());
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+// Ruta para agendar una cita
+app.post('/agendar-cita', (req, res) => {
+  const { fecha, hora, lugar, cedulaPaciente, cedulaPracticante, cedulaProfesional } = req.body;
 
-    if (!fecha || !hora || !lugar || !idPaciente) {
-      alert('Todos los campos son obligatorios');
-      return;
-    }
+  // Verificación de campos obligatorios
+  if (!fecha || !hora || !lugar || !cedulaPaciente) {
+    return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+  }
 
-    if (idProfesional && idPracticante) {
-      alert('Solo puedes seleccionar un profesional o un practicante');
-      return;
-    }
+  // Verifica si se selecciona solo uno entre profesional y practicante
+  if (cedulaPracticante && cedulaProfesional) {
+    return res.status(400).json({ error: 'Solo puedes seleccionar un profesional o un practicante' });
+  }
 
-    const citaData = {
-      fecha,
-      hora,
-      lugar,
-      idPaciente,
-      idProfesional,
-      idPracticante
-    };
+  // Ejemplo de cómo podrías validar que se ha proporcionado al menos una cédula válida
+  if (!cedulaPracticante && !cedulaProfesional) {
+    return res.status(400).json({ error: 'Debes ingresar la cédula del practicante o del profesional' });
+  }
 
-    try {
-      const response = await fetch('http://localhost:5001/agendar-cita', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(citaData),
-      });
+  // Aquí deberías añadir la lógica para guardar la cita en la base de datos
+  // Por ejemplo:
+  // const nuevaCita = new Cita({ fecha, hora, lugar, cedulaPaciente, cedulaPracticante, cedulaProfesional });
+  // nuevaCita.save((err) => {
+  //   if (err) {
+  //     return res.status(500).json({ error: 'Error al guardar la cita' });
+  //   }
+  //   res.status(201).json({ message: 'Cita agendada con éxito' });
+  // });
 
-      if (response.ok) {
-        alert('Cita agendada con éxito');
-      } else {
-        alert('Error al agendar la cita');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Error en la solicitud');
-    }
-  };
+  // Respuesta de éxito para la demostración
+  res.status(201).json({ message: 'Cita agendada con éxito' });
+});
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Fecha:</label>
-        <input 
-          type="date" 
-          value={fecha} 
-          onChange={(e) => setFecha(e.target.value)} 
-          required 
-        />
-      </div>
-
-      <div>
-        <label>Hora:</label>
-        <input 
-          type="time" 
-          value={hora} 
-          onChange={(e) => setHora(e.target.value)} 
-          required 
-        />
-      </div>
-
-      <div>
-        <label>Lugar:</label>
-        <select value={lugar} onChange={(e) => setLugar(e.target.value)} required>
-          <option value="">Selecciona--</option>
-          <option value="IPS">IPS</option>
-          <option value="Sede Consultorios">Sede Consultorios</option>
-        </select>
-      </div>
-
-      <div>
-        <label>Cédula del Paciente:</label>
-        <input 
-          type="text" 
-          value={idPaciente} 
-          onChange={(e) => setIdPaciente(e.target.value)} 
-          required 
-        />
-      </div>
-
-      <div>
-        <label>Cédula del Profesional:</label>
-        <input 
-          type="text" 
-          value={idProfesional} 
-          onChange={(e) => setIdProfesional(e.target.value)} 
-          disabled={!!idPracticante} 
-        />
-      </div>
-
-      <div>
-        <label>Cédula del Practicante:</label>
-        <input 
-          type="text" 
-          value={idPracticante} 
-          onChange={(e) => setIdPracticante(e.target.value)} 
-          disabled={!!idProfesional} 
-        />
-      </div>
-
-      <button type="submit">Agendar Cita</button>
-    </form>
-  );
-};
-
-export default AgendarCita;
+app.listen(port, () => {
+  console.log(`Servidor escuchando en http://localhost:${port}`);
+});

@@ -45,13 +45,13 @@ function AgendarCitas() {
       fecha,
       hora,
       lugar,
-      cedulaPaciente,
-      cedulaPracticante: seleccion === 'practicante' ? cedulaPracticante : null,
-      cedulaProfesional: seleccion === 'profesional' ? cedulaProfesional : null,
+      id_paciente_fk: cedulaPaciente,
+      id_practicante_fk: seleccion === 'practicante' ? cedulaPracticante : null,
+      id_profesional_fk: seleccion === 'profesional' ? cedulaProfesional : null,
     };
 
     try {
-      const response = await fetch('http://localhost:5001/agendar-cita', { // Cambia el puerto si es necesario
+      const response = await fetch('http://localhost:5000/agendar-cita', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
