@@ -59,4 +59,27 @@
     border: none;
     cursor: pointer;
   }
+  .menu-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .button-group {
+    margin-top: 20px;
+  }
+  
+  .menu-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .menu-button:hover {
+    background-color: #0056b3;
+  }
+  
   

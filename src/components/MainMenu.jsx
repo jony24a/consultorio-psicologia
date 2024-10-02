@@ -3,17 +3,20 @@ import './MainMenu.css';
 
 function MainMenu({ onSectionChange }) {
   return (
-    <div className="menu-container">
-      <h1>Bienvenido</h1>
-      <p>Selecciona una opción</p>
-      <div className="button-group">
-        <button className="menu-button" onClick={() => onSectionChange('registros')}>
-          Registros
-        </button>
-        <button className="menu-button" onClick={() => onSectionChange('agendarCitas')}>
-          Agendar Citas
-        </button>
-      </div>
+    <div className="p-6 bg-gray-100 rounded-lg">
+      <h1 className="text-2xl font-bold mb-4">Menú Principal</h1>
+      <button 
+        onClick={() => onSectionChange('registros')}
+        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+      >
+        Ir a Registro
+      </button>
+      <button 
+        onClick={() => onSectionChange('calendario')}
+        className="bg-green-500 text-white px-4 py-2 rounded"
+      >
+        Ver Calendario
+      </button>
     </div>
   );
 }

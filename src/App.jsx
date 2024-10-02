@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import MainMenu from './components/MainMenu';
 import RegisterSection from './connection/Registros/RegisterSection';
-import AgendarCitas from './components/AgendarCitas';
+import Calendario from './components/Calendario'; // Asegúrate de importar correctamente el Calendario
 
 function App() {
   const [activeSection, setActiveSection] = useState('menu');
 
   const renderSection = () => {
-    console.log(activeSection); // Agregar para verificar el valor
     switch (activeSection) {
       case 'menu':
         return <MainMenu onSectionChange={setActiveSection} />;
       case 'registros':
         return <RegisterSection />;
-      case 'agendarCitas':
-        return <AgendarCitas />;
+      case 'calendario': // Aquí asegúrate de que 'calendario' esté como sección
+        return <Calendario />; // Renderiza el componente del Calendario
       default:
         return <MainMenu onSectionChange={setActiveSection} />;
     }
