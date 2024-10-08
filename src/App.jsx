@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MainMenu from './components/MainMenu';
 import RegisterSection from './connection/Registros/RegisterSection';
-import Calendario from './components/Calendario'; // Asegúrate de importar correctamente el Calendario
+import Calendar from './components/calendario'; // Este es tu componente personalizado
 
 function App() {
   const [activeSection, setActiveSection] = useState('menu');
@@ -12,8 +12,8 @@ function App() {
         return <MainMenu onSectionChange={setActiveSection} />;
       case 'registros':
         return <RegisterSection />;
-      case 'calendario': // Aquí asegúrate de que 'calendario' esté como sección
-        return <Calendario />; // Renderiza el componente del Calendario
+      case 'calendario': // Asegúrate de que el nombre de la sección sea correcto
+        return <Calendar />; // Usa el componente personalizado
       default:
         return <MainMenu onSectionChange={setActiveSection} />;
     }
