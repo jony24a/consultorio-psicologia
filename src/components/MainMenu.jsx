@@ -1,5 +1,5 @@
 import React from 'react';
-import './MainMenu.css';
+import './MainMenu.css'; // Asegúrate de tener este archivo para los estilos
 
 function MainMenu({ onSectionChange }) {
   return (

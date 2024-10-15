@@ -6,8 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 // Configura el localizador
 const localizer = dayjsLocalizer(dayjs);
 
-function Calendar() {
-  // Define tus eventos
+function Calendar({ onSectionChange }) {
   const events = [
     {
       start: dayjs('2024-12-18T12:00:00').toDate(),
@@ -18,19 +17,39 @@ function Calendar() {
 
   return (
     <div style={{
-      height: '95vh',
-      width: '70vw',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      height: '100vh',
+      padding: '20px',
     }}>
-      <BigCalendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: '100%' }} // Ajusta el estilo si es necesario
-      />
+      {/* Botón para regresar al menú */}
+      <button
+        onClick={() => onSectionChange('menu')} // Cambia a la sección 'menu'
+        style={{
+          padding: '10px 20px',
+          fontSize: '16px',
+          cursor: 'pointer',
+        }}
+      >
+        Volver al Menú
+      </button>
+
+      {/* Calendario */}
+      <div style={{
+        height: '95vh',
+        width: '70vw',
+      }}>
+        <BigCalendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ height: '100%' }}
+        />
+      </div>
     </div>
   );
 }
 
 export default Calendar;
-

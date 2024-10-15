@@ -4,16 +4,17 @@ import RegisterSection from './connection/Registros/RegisterSection';
 import Calendar from './components/calendario'; // Este es tu componente personalizado
 
 function App() {
-  const [activeSection, setActiveSection] = useState('menu');
+  const [activeSection, setActiveSection] = useState('menu'); // Estado para cambiar entre secciones
 
+  // Función para renderizar la sección correspondiente
   const renderSection = () => {
     switch (activeSection) {
       case 'menu':
         return <MainMenu onSectionChange={setActiveSection} />;
       case 'registros':
-        return <RegisterSection />;
-      case 'calendario': // Asegúrate de que el nombre de la sección sea correcto
-        return <Calendar />; // Usa el componente personalizado
+        return <RegisterSection onSectionChange={setActiveSection} />;
+      case 'calendario':
+        return <Calendar onSectionChange={setActiveSection} />;
       default:
         return <MainMenu onSectionChange={setActiveSection} />;
     }
